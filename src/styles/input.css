@@ -1,0 +1,28 @@
+.input-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.input {
+  background: var(--c-input);
+  color: var(--c-white);
+  border-radius: 4px;
+  padding: 17px;
+  outline: 0;
+  border-style: none;
+}
+
+.multiline {
+}
+
+.input-label {
+  color: var(--c-primary);
+  text-transform: uppercase;
+  opacity: 0.8;
+}
+
+.search-input {
+  background: var(--c-search-input);
+  opacity: 0.7;
+}

@@ -1,0 +1,26 @@
+.header {
+  display: flex;
+  height: 396px;
+  padding: 20px 60px;
+}
+
+.header .search {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex: 1;
+  margin: 0 60px;
+}
+
+.header .title {
+  color: var(--c-white);
+  margin-bottom: 38px;
+}
+
+.header .search-bar {
+  justify-content: space-between;
+}
+
+.header .search-button {
+  width: 233px;
+}
