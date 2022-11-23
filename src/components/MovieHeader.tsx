@@ -25,10 +25,6 @@ export const MovieHeader = ({
       { value: ["release_date", "desc"], label: "Release Date (Desc)" },
       { value: ["vote_average", "asc"], label: "Average Vote (Asc)" },
       { value: ["vote_average", "desc"], label: "Average Vote (Desc)" },
-      { value: ["budget", "asc"], label: "Budget (Asc)" },
-      { value: ["budget", "desc"], label: "Budget (Desc)" },
-      { value: ["runtime", "asc"], label: "Runtime (Asc)" },
-      { value: ["runtime", "desc"], label: "Runtime (Desc)" },
     ],
     []
   )
