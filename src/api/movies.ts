@@ -16,9 +16,9 @@ export const getMovies = async (params?: GetMoviesParams) => {
   }
 }
 
-export const getMovie = async (id: string) => {
+export const getMovie = async (id: number) => {
   try {
-    const response = await moviesApi.get<Movie>(`/movies${id}`)
+    const response = await moviesApi.get<Movie>(`/movies/${id}`)
     return response.data
   } catch (error) {
     console.error(error)

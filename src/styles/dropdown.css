@@ -65,11 +65,11 @@
 .checkbox-dropdown-list li label {
   display: block;
   padding: 10px;
-  transition: all 0.2s ease-out;
+  transition: background-color 0.3s ease-out;
 }
 
 .checkbox-dropdown-list li label:hover {
-  background-color: #555;
+  background-color: var(--c-background-light);
   color: var(--c-white);
 }
 

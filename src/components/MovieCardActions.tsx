@@ -3,6 +3,7 @@ import { useCallback, useMemo, useState } from "react"
 import { deleteMovie } from "../api/movies"
 import { ReactComponent as VerticalDotsIcon } from "../assets/vertical-dots.svg"
 import { Movie } from "../types/movies"
+import { getMovieFormData } from "../utils/movie"
 import { AddUpdateMovieModal } from "./AddUpdateMovieModal"
 import { ConfirmModal } from "./atoms/ConfirmModal"
 import { IconButton } from "./atoms/IconButton"
@@ -85,7 +86,7 @@ export const MovieCardActions = ({ movie }: MovieCardProps) => {
       <AddUpdateMovieModal
         open={editModal}
         closeModal={closeEditModal}
-        formData={movie}
+        formData={getMovieFormData(movie)}
         isEditMode={true}
       />
     </>

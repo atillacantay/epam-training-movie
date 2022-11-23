@@ -24,7 +24,7 @@ export const Select = ({ placeholder, items, onChange }: SelectProps) => {
       className={clsx(["input", "checkbox-dropdown", isActive && "is-active"])}
       onClick={toggleSelect}
     >
-      {placeholder}
+      <span className="text-sm">{placeholder}</span>
       <ul className="checkbox-dropdown-list">
         {items.map((item) => (
           <li key={item.label}>

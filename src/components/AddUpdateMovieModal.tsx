@@ -2,22 +2,12 @@ import React, { useEffect } from "react"
 import { addMovie, updateMovie } from "../api/movies"
 import { ReactComponent as CircleCheckIcon } from "../assets/circle-check.svg"
 import genres from "../genres.json"
-import { Movie } from "../types/movies"
+import { MovieForm } from "../types/movies"
 import { ConfirmModal } from "./atoms/ConfirmModal"
 import { Dropdown } from "./atoms/Dropdown"
 import { Input } from "./atoms/Input"
 
-interface DefaultForm {
-  title: string
-  release_date: string
-  poster_path: string
-  vote_average: number
-  genres: string[]
-  runtime: number
-  overview: string
-}
-
-const defaultForm: DefaultForm = {
+const defaultForm: MovieForm = {
   title: "",
   release_date: "", // 2022-11-21
   poster_path: "",
@@ -30,7 +20,7 @@ const defaultForm: DefaultForm = {
 interface AddUpdateMovieModalProps {
   open: boolean
   closeModal: () => void
-  formData?: Movie
+  formData?: MovieForm
   isEditMode?: boolean
 }
 
@@ -41,19 +31,27 @@ export const AddUpdateMovieModal = ({
   isEditMode = false,
 }: AddUpdateMovieModalProps) => {
   const [successfulModal, setSuccessfulModal] = React.useState(false)
-  const [form, setForm] = React.useState<DefaultForm>(defaultForm)
+  const [form, setForm] = React.useState<MovieForm>(defaultForm)
 
   const submit = async () => {
     const action = isEditMode ? updateMovie(form) : addMovie(form)
     const movie = await action
     if (movie) {
-      closeModal()
+      handleClose()
       setSuccessfulModal(true)
     }
   }
 
+  const handleClose = () => {
+    reset()
+    closeModal()
+  }
+
   const reset = () => {
-    setForm(defaultForm)
+    const form = isEditMode ? formData : defaultForm
+    if (form) {
+      setForm(form)
+    }
   }
 
   const handleInputChange = (name: string, value: string | number) => {
@@ -67,7 +65,7 @@ export const AddUpdateMovieModal = ({
   }, [isEditMode, formData])
 
   const handleDropdownChange = (
-    name: keyof DefaultForm,
+    name: keyof MovieForm,
     e: React.BaseSyntheticEvent
   ) => {
     if (e.target.checked) {
@@ -84,7 +82,7 @@ export const AddUpdateMovieModal = ({
     <>
       <ConfirmModal
         open={open}
-        closeModal={closeModal}
+        closeModal={handleClose}
         title={isEditMode ? "EDIT MOVIE" : "ADD MOVIE"}
         onConfirm={submit}
         confirmText={isEditMode ? "Save" : "submit"}

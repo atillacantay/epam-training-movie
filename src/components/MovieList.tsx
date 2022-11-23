@@ -8,7 +8,7 @@ interface MovieListProps {
 export const MovieList = ({ movies }: MovieListProps) => {
   return (
     <div className="list-page">
-      <h3 className="count">
+      <h3 className="count input-text">
         <b>{movies.length}</b> movies found
       </h3>
       <div className="movie-list">

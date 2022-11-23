@@ -44,4 +44,15 @@ export interface AddMovieParams {
   genres: string[]
 }
 
+export interface MovieForm {
+  id?: number
+  title: string
+  release_date: string
+  poster_path: string
+  vote_average: number
+  genres: string[]
+  runtime: number
+  overview: string
+}
+
 export type SortOrder = "asc" | "desc"
