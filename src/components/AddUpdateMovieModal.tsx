@@ -35,7 +35,7 @@ export const AddUpdateMovieModal = ({
   const [successfulModal, setSuccessfulModal] = React.useState(false)
 
   const submit = async () => {
-    formik.validateForm()
+    await formik.validateForm()
 
     if (formik.isValid) {
       const action = isEditMode
