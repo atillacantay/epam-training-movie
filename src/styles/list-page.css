@@ -1,0 +1,15 @@
+.list-page {
+  padding-bottom: 70px;
+}
+
+.list-page .count {
+  color: var(--c-white);
+  margin: 0;
+  margin: 24px 0;
+}
+
+.list-page .movie-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 55px;
+}

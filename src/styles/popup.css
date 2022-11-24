@@ -1,0 +1,31 @@
+.popup {
+  position: absolute;
+}
+
+.popup .close {
+  position: absolute;
+  right: 10px;
+  top: 6px;
+  cursor: pointer;
+}
+
+.popup-menu {
+  width: 190px;
+  padding-bottom: 12px;
+  padding-top: 30px;
+  background: var(--c-background);
+  color: var(--c-white);
+  border-radius: 4px;
+}
+
+.popup-menu-item {
+  cursor: pointer;
+  height: 34px;
+  padding: 0 25px;
+  display: flex;
+  align-items: center;
+}
+
+.popup-menu-item:hover {
+  background-color: var(--c-primary);
+}

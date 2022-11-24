@@ -1,0 +1,26 @@
+.movie-header {
+  border-bottom: 2px solid var(--c-background-light);
+  padding-right: 62px;
+}
+
+.movie-header > .movie-header-content {
+  display: flex;
+  justify-content: space-between;
+}
+
+.movie-header-content > .sort {
+  display: flex;
+  align-items: center;
+}
+
+.movie-header-content > .sort > .sort-label {
+  color: var(--c-white);
+  margin-right: 30px;
+  opacity: 0.6;
+  white-space: nowrap;
+}
+
+.movie-header-content .input {
+  background-color: transparent;
+  width: 80px;
+}
