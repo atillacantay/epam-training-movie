@@ -19,7 +19,7 @@ export const Main = () => {
     }
 
     fetchData()
-  }, [filter, sortBy, sortOrder])
+  }, [filter, sortBy, sortOrder, dispatch])
 
   const onFilterChange = (newFilter?: string) => {
     setFilter(newFilter)
