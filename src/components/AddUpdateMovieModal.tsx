@@ -71,6 +71,7 @@ export const AddUpdateMovieModal = ({
     if (isEditMode && formData) {
       formik.setValues(formData)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isEditMode, formData])
 
   const handleDropdownChange = (e: React.BaseSyntheticEvent) => {
