@@ -26,7 +26,9 @@ export const MovieSchema = Yup.object().shape({
     .min(0, "Must above 0")
     .max(100, "Must below 100")
     .required("Required"),
-  genres: Yup.array<String>().min(1, "Must above 1").required("Required"),
+  genres: Yup.array<String>()
+    .min(1, "Must add at least 1 element")
+    .required("Required"),
   runtime: Yup.number().min(0, "Must above 0").required("Required"),
   overview: Yup.string().required("Required"),
 })
