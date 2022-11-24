@@ -34,7 +34,7 @@ export const Header = () => {
             closeModal={() => setModal(false)}
           />
           <div className="heading search" style={{ letterSpacing: 1 }}>
-            <h5 className="title">FIND YOUR MOVIE</h5>
+            <span className="title">FIND YOUR MOVIE</span>
             <Search />
           </div>
         </div>
