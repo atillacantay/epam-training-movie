@@ -98,7 +98,6 @@ export const AddUpdateMovieModal = ({
         confirmButtonType="submit"
       >
         <div className="add-movie-modal">
-          {JSON.stringify(formik.errors)}
           <form className="content" onSubmit={formik.handleSubmit}>
             <Input
               name="title"
