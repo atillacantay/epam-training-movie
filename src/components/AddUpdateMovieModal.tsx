@@ -1,8 +1,10 @@
+import { useFormik } from "formik"
 import React, { useEffect } from "react"
 import { addMovie, updateMovie } from "../api/movies"
 import { ReactComponent as CircleCheckIcon } from "../assets/circle-check.svg"
 import genres from "../genres.json"
 import { MovieForm } from "../types/movies"
+import { MovieSchema } from "../utils/movie"
 import { ConfirmModal } from "./atoms/ConfirmModal"
 import { Dropdown } from "./atoms/Dropdown"
 import { Input } from "./atoms/Input"
@@ -31,16 +33,27 @@ export const AddUpdateMovieModal = ({
   isEditMode = false,
 }: AddUpdateMovieModalProps) => {
   const [successfulModal, setSuccessfulModal] = React.useState(false)
-  const [form, setForm] = React.useState<MovieForm>(defaultForm)
 
   const submit = async () => {
-    const action = isEditMode ? updateMovie(form) : addMovie(form)
-    const movie = await action
-    if (movie) {
-      handleClose()
-      setSuccessfulModal(true)
+    formik.validateForm()
+
+    if (formik.isValid) {
+      const action = isEditMode
+        ? updateMovie(formik.values)
+        : addMovie(formik.values)
+      const movie = await action
+      if (movie) {
+        handleClose()
+        setSuccessfulModal(true)
+      }
     }
   }
+
+  const formik = useFormik({
+    initialValues: defaultForm,
+    onSubmit: submit,
+    validationSchema: MovieSchema,
+  })
 
   const handleClose = () => {
     reset()
@@ -50,31 +63,24 @@ export const AddUpdateMovieModal = ({
   const reset = () => {
     const form = isEditMode ? formData : defaultForm
     if (form) {
-      setForm(form)
+      formik.setValues(form)
     }
-  }
-
-  const handleInputChange = (name: string, value: string | number) => {
-    setForm({ ...form, [name]: value })
   }
 
   useEffect(() => {
     if (isEditMode && formData) {
-      setForm(formData)
+      formik.setValues(formData)
     }
   }, [isEditMode, formData])
 
-  const handleDropdownChange = (
-    name: keyof MovieForm,
-    e: React.BaseSyntheticEvent
-  ) => {
+  const handleDropdownChange = (e: React.BaseSyntheticEvent) => {
+    const helpers = formik.getFieldHelpers("genres")
     if (e.target.checked) {
-      setForm({ ...form, [name]: (form[name] as any[]).concat(e.target.value) })
+      helpers.setValue(formik.values.genres.concat(e.target.value))
     } else {
-      setForm({
-        ...form,
-        [name]: (form[name] as any[]).filter((item) => item !== e.target.value),
-      })
+      helpers.setValue(
+        formik.values.genres.filter((item) => item !== e.target.value)
+      )
     }
   }
 
@@ -88,70 +94,77 @@ export const AddUpdateMovieModal = ({
         confirmText={isEditMode ? "Save" : "submit"}
         rejectText="reset"
         onReject={reset}
+        confirmButtonType="submit"
       >
         <div className="add-movie-modal">
-          <form className="content">
+          {JSON.stringify(formik.errors)}
+          <form className="content" onSubmit={formik.handleSubmit}>
             <Input
               name="title"
               label="title"
-              value={form.title}
               placeholder="Movie Title"
-              onChange={(e) => handleInputChange(e.target.name, e.target.value)}
+              value={formik.values.title}
+              onChange={formik.handleChange}
+              errorText={formik.errors.title}
             />
             <Input
               type="date"
               name="release_date"
               label="Release Date"
-              value={form.release_date}
               placeholder="Select Date"
-              onChange={(e) => handleInputChange(e.target.name, e.target.value)}
+              value={formik.values.release_date}
+              onChange={formik.handleChange}
+              errorText={formik.errors.release_date}
             />
             <Input
               name="poster_path"
               label="Movie Url"
-              value={form.poster_path}
               placeholder="https://"
-              onChange={(e) => handleInputChange(e.target.name, e.target.value)}
+              value={formik.values.poster_path}
+              onChange={formik.handleChange}
+              errorText={formik.errors.poster_path}
             />
             <Input
               name="vote_average"
               type="number"
               label="Rating"
-              value={form.vote_average}
               placeholder="7.8"
-              onChange={(e) =>
-                handleInputChange(e.target.name, e.target.valueAsNumber)
-              }
+              value={formik.values.vote_average}
+              onChange={formik.handleChange}
+              errorText={formik.errors.vote_average}
             />
             <Dropdown
               label="Genre"
               placeholder={
-                form.genres.length > 0 ? form.genres.join(", ") : "Select Genre"
+                formik.values.genres.length > 0
+                  ? formik.values.genres.join(", ")
+                  : "Select Genre"
               }
-              onChange={(e) => handleDropdownChange("genres", e)}
-              values={form.genres}
+              values={formik.values.genres}
+              onChange={handleDropdownChange}
               items={genres.map((genre) => ({
                 value: genre,
                 label: genre,
               }))}
+              errorText={formik.errors.vote_average}
             />
             <Input
               type="number"
               name="runtime"
               label="Runtime"
-              value={form.runtime}
               placeholder="minutes"
-              onChange={(e) =>
-                handleInputChange(e.target.name, e.target.valueAsNumber)
-              }
+              value={formik.values.runtime}
+              onChange={formik.handleChange}
+              errorText={formik.errors.runtime}
             />
             <Input
               name="overview"
               label="Overview"
-              value={form.overview}
               placeholder="Movie Description"
-              onChange={(e) => handleInputChange(e.target.name, e.target.value)}
               multiline
+              value={formik.values.overview}
+              onChange={formik.handleChange}
+              errorText={formik.errors.overview}
             />
           </form>
         </div>

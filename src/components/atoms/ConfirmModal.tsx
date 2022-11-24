@@ -17,6 +17,7 @@ interface ConfirmModalProps {
   errorText?: string
   containerClassname?: string
   contentClassname?: string
+  confirmButtonType?: "button" | "reset" | "submit"
 }
 
 export const ConfirmModal = ({
@@ -33,6 +34,7 @@ export const ConfirmModal = ({
   errorText,
   containerClassname,
   contentClassname,
+  confirmButtonType = "button",
 }: ConfirmModalProps) => {
   return (
     <Modal
@@ -53,7 +55,7 @@ export const ConfirmModal = ({
             <SecondaryButton onClick={onReject}>{rejectText}</SecondaryButton>
           )}
           {onConfirm && (
-            <PrimaryButton onClick={onConfirm}>
+            <PrimaryButton type={confirmButtonType} onClick={onConfirm}>
               {confirmText || "Confirm"}
             </PrimaryButton>
           )}

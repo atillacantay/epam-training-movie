@@ -12,6 +12,7 @@ interface DropdownProps {
   onChange: (e: React.BaseSyntheticEvent) => void
   items: Item[]
   values: string[]
+  errorText?: string
 }
 
 export const Dropdown = ({
@@ -20,6 +21,7 @@ export const Dropdown = ({
   items,
   values,
   onChange,
+  errorText,
 }: DropdownProps) => {
   const [isActive, setActive] = React.useState(false)
 
@@ -56,6 +58,7 @@ export const Dropdown = ({
           ))}
         </ul>
       </div>
+      {errorText && <span className="error">{errorText}</span>}
     </div>
   )
 }
