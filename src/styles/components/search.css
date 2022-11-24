@@ -1,0 +1,9 @@
+.search-bar {
+  display: flex;
+}
+
+.search-bar .input {
+  flex: 1;
+  margin-right: 14px;
+  color: var(--c-white);
+}
