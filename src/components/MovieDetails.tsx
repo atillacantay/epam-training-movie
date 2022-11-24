@@ -1,8 +1,8 @@
-import { useContext, useEffect, useState } from "react"
-import { getMovie } from "../api/movies"
+import { useEffect } from "react"
+import { useDispatch, useSelector } from "react-redux"
 import { ReactComponent as SearchIcon } from "../assets/search-button.svg"
-import { MovieContext } from "../context/movie"
-import { Movie } from "../types/movies"
+import { fetchMovieById, reset } from "../features/movie/movieSlice"
+import { AppDispatch, RootState } from "../store"
 import { convertRunTime } from "../utils/movie"
 import { IconButton } from "./atoms/IconButton"
 
@@ -11,21 +11,18 @@ interface MovieDetailsProps {
 }
 
 export const MovieDetails = ({ id }: MovieDetailsProps) => {
-  const [movie, setMovie] = useState<Movie>()
-  const context = useContext(MovieContext)
+  const dispatch = useDispatch<AppDispatch>()
+  const movie = useSelector((state: RootState) => state.movie.movieDetails)
 
   useEffect(() => {
     const fetchData = async () => {
       if (id) {
-        const result = await getMovie(id)
-        if (result) {
-          setMovie(result)
-        }
+        dispatch(fetchMovieById(id))
       }
     }
 
     fetchData()
-  }, [id])
+  }, [id, dispatch])
 
   if (!movie) return null
 
@@ -33,7 +30,7 @@ export const MovieDetails = ({ id }: MovieDetailsProps) => {
     <div className="movie-details">
       <div className="navbar">
         <h3 className="heading-xs navbar-heading">netflixroulette</h3>
-        <IconButton onClick={() => context?.dispatch({ type: "reset" })}>
+        <IconButton onClick={() => dispatch(reset())}>
           <SearchIcon />
         </IconButton>
       </div>

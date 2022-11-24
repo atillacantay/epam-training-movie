@@ -1,6 +1,7 @@
-import { useContext, useState } from "react"
+import { useState } from "react"
+import { useSelector } from "react-redux"
 import HeaderBackground from "../assets/header-background.png"
-import { MovieContext } from "../context/movie"
+import { RootState } from "../store"
 import { AddUpdateMovieModal } from "./AddUpdateMovieModal"
 import { TertiaryButton } from "./atoms/TertiaryButton"
 import { Logo } from "./Logo"
@@ -9,12 +10,14 @@ import { Search } from "./Search"
 
 export const Header = () => {
   const [modal, setModal] = useState(false)
-  const context = useContext(MovieContext)
+  const selectedMovie = useSelector(
+    (state: RootState) => state.movie.selectedMovie
+  )
 
   return (
     <>
-      {context?.state.selectedMovie ? (
-        <MovieDetails id={context?.state.selectedMovie} />
+      {selectedMovie ? (
+        <MovieDetails id={selectedMovie} />
       ) : (
         <div
           className="header"

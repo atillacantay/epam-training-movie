@@ -1,5 +1,6 @@
-import { useContext } from "react"
-import { MovieContext } from "../context/movie"
+import { useDispatch } from "react-redux"
+import { select } from "../features/movie/movieSlice"
+import { AppDispatch } from "../store"
 import { Movie } from "../types/movies"
 import { MovieCardActions } from "./MovieCardActions"
 import { MovieCardImage } from "./MovieCardImage"
@@ -11,10 +12,10 @@ interface MovieCardProps {
 
 export const MovieCard = ({ movie }: MovieCardProps) => {
   const { poster_path, title } = movie
-  const context = useContext(MovieContext)
+  const dispatch = useDispatch<AppDispatch>()
 
   const onClick = () => {
-    context?.dispatch({ type: "select", payload: movie.id })
+    dispatch(select(movie.id))
   }
 
   return (
