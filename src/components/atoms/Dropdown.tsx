@@ -12,7 +12,7 @@ interface DropdownProps {
   onChange: (e: React.BaseSyntheticEvent) => void
   items: Item[]
   values: string[]
-  errorText?: string
+  errorText?: string | string[]
 }
 
 export const Dropdown = ({

@@ -146,7 +146,7 @@ export const AddUpdateMovieModal = ({
                 value: genre,
                 label: genre,
               }))}
-              errorText={formik.errors.vote_average}
+              errorText={formik.errors.genres}
             />
             <Input
               type="number"
